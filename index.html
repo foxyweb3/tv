@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Pimple TV Channels</title>
+  <style>
+    body {
+      background: #141414;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 24px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h2 {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #ececec;
+      text-align: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #f1f1f1;
+      background: #23272e;
+      border: 2px solid #3b4048;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .btn .tag {
+      font-family: monospace;
+      font-size: 18px;
+      background: #111418;
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: #4da3ff;
+      border: 1px solid #2d3748;
+    }
+    .btn:hover, .btn:focus {
+      background: #00c853;
+      color: #000000;
+      border-color: #ffffff;
+      transform: scale(1.01);
+    }
+    .btn:hover .tag, .btn:focus .tag {
+      background: #000000;
+      color: #00e676;
+      border-color: #000000;
+    }
+    #status {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #00e676;
+      min-height: 28px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Выберите канал (клик для копирования в буфер)</h2>
+
+  <div class="container">
+    <button class="btn" onclick="copyCode('e38b33c56332de27ff25df223cdf488b1ec6051f', '★ Pimple TV 1 (Основной)', '...6051f')">
+      <span>★ Pimple TV 1 (Основной)</span>
+      <span class="tag">...6051f</span>
+    </button>
+
+    <button class="btn" onclick="copyCode('016d48fb89bb9505ab3f883db1bfb3a7c0a3eccc', '★ Pimple TV 2 (Ходовой)', '...3eccc')">
+      <span>★ Pimple TV 2 (Ходовой)</span>
+      <span class="tag">...3eccc</span>
+    </button>
+
+    <button class="btn" onclick="copyCode('8442b5c7c99e5af57c2c40c1e28153072968988a', '★ Pimple TV 3 (Ходовой)', '...9888a')">
+      <span>★ Pimple TV 3 (Ходовой)</span>
+      <span class="tag">...9888a</span>
+    </button>
+
+    <button class="btn" onclick="copyCode('350b2044f1c9e87e18d8fbda1bcc456c22cf9296', 'Pimple TV 4', '...f9296')">
+      <span>Pimple TV 4</span>
+      <span class="tag">...f9296</span>
+    </button>
+
+    <button class="btn" onclick="copyCode('aca05dc506242324c1727525d0535ceda24f8dea', 'Pimple TV 5', '...f8dea')">
+      <span>Pimple TV 5</span>
+      <span class="tag">...f8dea</span>
+    </button>
+
+    <button class="btn" onclick="copyCode('bc99becb2a74f8f455d6dbaa3bd85c6c7e938a6c', 'Pimple TV 6', '...38a6c')">
+      <span>Pimple TV 6</span>
+      <span class="tag">...38a6c</span>
+    </button>
+
+    <button class="btn" onclick="copyCode('12ea555d431dbe51fc8e4ca745aec09fe22a4865', 'DAZN 2 Bar DE (Резерв мультикасту)', '...a4865')">
+      <span>DAZN 2 Bar DE (Резерв мультикасту)</span>
+      <span class="tag">...a4865</span>
+    </button>
+  </div>
+
+  <div id="status"></div>
+
+  <script>
+    function copyCode(hash, title, ending) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(hash).then(function() {
+          notifySuccess(title, ending);
+        }).catch(function() {
+          execFallback(hash, title, ending);
+        });
+      } else {
+        execFallback(hash, title, ending);
+      }
+    }
+
+    function execFallback(hash, title, ending) {
+      var el = document.createElement('textarea');
+      el.value = hash;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      notifySuccess(title, ending);
+    }
+
+    function notifySuccess(title, ending) {
+      var box = document.getElementById('status');
+      box.innerText = '✓ Скопирован код: ' + title + ' (' + ending + ')';
+      setTimeout(function() {
+        box.innerText = '';
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
